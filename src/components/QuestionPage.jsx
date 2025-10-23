@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import React, { useState, useEffect, useRef } from 'react'
+import learningApi, { ChatPrompt } from '../api/learningApi'
 
 // 我要提问页面组件 - 聊天界面风格
 export function QuestionPage() {
@@ -37,7 +38,7 @@ export function QuestionPage() {
 
     // 隐藏引导问题
     setShowGuideQuestions(false);
-    
+
     // 添加用户消息
     const newUserMessage = {
       id: Date.now(),
@@ -47,37 +48,16 @@ export function QuestionPage() {
 
     setMessages(prev => [...prev, newUserMessage]);
     setInputMessage('');
-    setIsSending(true);
 
-    // 模拟回复延迟
-    setTimeout(() => {
-      // 生成随机回复
-      const replies = [
-        '谢谢你的分享，我很理解你的感受！',
-        '这个问题很有意思，让我想想...',
-        '你说得对，学习确实需要耐心和坚持。',
-        '我会认真考虑你的建议的。',
-        '别着急，慢慢来，你已经做得很好了！'
-      ];
-      const randomReply = replies[Math.floor(Math.random() * replies.length)];
-
-      const newSystemMessage = {
-        id: Date.now() + 1,
-        type: 'system',
-        content: randomReply,
-        avatar: '❤️'
-      };
-
-      setMessages(prev => [...prev, newSystemMessage]);
-      setIsSending(false);
-    }, 1000);
+    // AI回复
+    generateChat(inputMessage);
   };
 
   // 处理引导问题点击
   const handleGuideQuestionClick = (question) => {
     // 隐藏引导问题
     setShowGuideQuestions(false);
-    
+
     const newUserMessage = {
       id: Date.now(),
       type: 'user',
@@ -85,25 +65,8 @@ export function QuestionPage() {
     };
 
     setMessages(prev => [...prev, newUserMessage]);
-
-    // 模拟回复延迟
-    setTimeout(() => {
-      let reply = '';
-      if (question === guideQuestions[0]) {
-        reply = '学习中遇到困难是很正常的，你可以尝试分解问题，一步步解决，或者换个角度思考，也许会有新的灵感。';
-      } else {
-        reply = '不管什么话题，我都很乐意倾听，你可以畅所欲言。';
-      }
-
-      const newSystemMessage = {
-        id: Date.now() + 1,
-        type: 'system',
-        content: reply,
-        avatar: '❤️'
-      };
-
-      setMessages(prev => [...prev, newSystemMessage]);
-    }, 1000);
+    // AI回复
+    generateChat(question);
   };
 
   // 处理回车发送
@@ -119,16 +82,71 @@ export function QuestionPage() {
     navigate('/');
   };
 
+  const generateChat = async (content) => {
+    setIsSending(true);
+    try {
+      const apiResponse = await learningApi.generateAI({ prompt: ChatPrompt.replace('${content}', content) })
+      const data = apiResponse.data
+      if (!data.choices || data.choices.length === 0) {
+        throw new Error('文心一言API调用结果为空')
+      }
+
+      const result = data.choices[0].message.content
+      console.log('生成结果:', result)
+
+      // 解析JSON格式的结果
+      let parsedResult
+      try {
+        // 提取JSON部分
+        const jsonMatch = result.match(/\{[^}]*\}/)
+        if (jsonMatch) {
+          parsedResult = JSON.parse(jsonMatch[0])
+        } else {
+          throw new Error('无法从结果中提取JSON')
+        }
+      } catch (parseError) {
+        console.error('JSON解析错误:', parseError)
+      }
+
+      console.log('解析后的春联数据:', parsedResult)
+
+      // 检查是否获取到完整的数据
+      if (!parsedResult.content) {
+        throw new Error('数据不完整: ' + JSON.stringify(parsedResult))
+      }
+      const newSystemMessage = {
+        id: Date.now() + 1,
+        type: 'system',
+        content: parsedResult.content,
+        avatar: '❤️'
+      };
+
+      setMessages(prev => [...prev, newSystemMessage]);
+    } catch (error) {
+      console.error('生成文本过程中发生错误:', error)
+      const randomReply = replies[Math.floor(Math.random() * replies.length)];
+      const newSystemMessage = {
+        id: Date.now() + 1,
+        type: 'system',
+        content: randomReply,
+        avatar: '❤️'
+      };
+      setMessages(prev => [...prev, newSystemMessage]);
+    } finally {
+      setIsSending(false);
+    }
+  }
+
   return (
     <div className="subpage question-page">
       <button className="back-button" onClick={handleBackToHome}>← 返回首页</button>
-      
+
       {/* 顶部标题 */}
       <div className="chat-header">
         <h1 className="chat-title">情绪价值</h1>
         <p className="chat-subtitle">内容由AI生成</p>
       </div>
-      
+
       {/* 聊天内容区域 */}
       <div className="chat-container" ref={chatContainerRef}>
         {/* 消息列表 */}
@@ -137,7 +155,7 @@ export function QuestionPage() {
           {messages.map((message, index) => {
             // 检查是否是第一条消息
             const isFirstMessage = index === 0;
-            
+
             return (
               <React.Fragment key={message.id}>
                 <div className={`message ${message.type}-message`}>
@@ -146,13 +164,13 @@ export function QuestionPage() {
                   )}
                   <div className="message-content">{message.content}</div>
                 </div>
-                
+
                 {/* 第一条消息下面显示引导问题 */}
                 {isFirstMessage && showGuideQuestions && (
                   <div className="guide-questions-wrapper">
                     {guideQuestions.map((question, qIndex) => (
-                      <div 
-                        key={qIndex} 
+                      <div
+                        key={qIndex}
                         className="guide-question"
                         onClick={() => handleGuideQuestionClick(question)}
                       >
@@ -164,7 +182,7 @@ export function QuestionPage() {
               </React.Fragment>
             );
           })}
-          
+
           {/* 发送中状态 */}
           {isSending && (
             <div className="message system-message">
@@ -178,7 +196,7 @@ export function QuestionPage() {
           )}
         </div>
       </div>
-      
+
       {/* 底部输入区域 */}
       <div className="input-container">
         <div className="input-wrapper">
@@ -191,7 +209,7 @@ export function QuestionPage() {
             onKeyPress={handleKeyPress}
             disabled={isSending}
           />
-          <button 
+          <button
             className="send-button"
             onClick={handleSendMessage}
             disabled={!inputMessage.trim() || isSending}
