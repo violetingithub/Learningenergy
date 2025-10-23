@@ -73,6 +73,13 @@ export function PetPage() {
     generateBubbles();
   }, []);
 
+  // 处理任务选中状态切换
+  const handleActivityToggle = (id) => {
+    setActivities(prev => prev.map(activity => 
+      activity.id === id ? { ...activity, completed: !activity.completed } : activity
+    ));
+  };
+
   // 处理返回首页
   const handleBackToHome = () => {
     navigate('/');
@@ -270,7 +277,12 @@ export function PetPage() {
         <h3 className="activities-title">今日任务</h3>
         <div className="activities-list">
           {activities.map(activity => (
-            <div key={activity.id} className="activity-item">
+            <div 
+              key={activity.id} 
+              className="activity-item"
+              onClick={() => handleActivityToggle(activity.id)}
+              style={{ cursor: 'pointer' }}
+            >
               <div className="activity-check">
                 {activity.completed ? '✓' : '○'}
               </div>

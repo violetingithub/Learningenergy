@@ -66,7 +66,7 @@ function StudyBuddyPage() {
     setEnergyGiftingId(buddyId);
     setTimeout(() => {
       setEnergyGiftingId(null);
-      setToastMessage('学习能量值已赠送！');
+      setToastMessage('已赠送10点学习能量值！');
       setShowToast(true);
       setTimeout(() => setShowToast(false), 2000);
     }, 1500);

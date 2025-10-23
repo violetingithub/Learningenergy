@@ -246,7 +246,7 @@ export function TimerPage() {
         {showEncouragement && (
           <div className="encouragement-box">
             {isLoading ? (
-              <p className="loading-text">正在生成专属鼓励话术...</p>
+              <p className="loading-text">正在生成学习激励...</p>
             ) : (
               <p className="encouragement-text">{encouragement}</p>
             )}

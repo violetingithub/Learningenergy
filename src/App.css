@@ -598,6 +598,16 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
+.activity-item {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.activity-item:hover {
+  background: rgba(0, 180, 216, 0.1);
+  transform: translateX(5px);
+}
+
 .activity-check {
   width: 24px;
   height: 24px;
@@ -609,6 +619,12 @@
   justify-content: center;
   font-size: 0.9rem;
   color: #ffffff;
+  transition: all 0.3s ease;
+}
+
+.activity-item:hover .activity-check {
+  border-color: #00b4d8;
+  background: rgba(0, 180, 216, 0.2);
 }
 
 .activity-name {
