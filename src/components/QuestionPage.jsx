@@ -203,7 +203,7 @@ export function QuestionPage() {
           <input
             type="text"
             className="message-input"
-            placeholder="发消息或按住说话..."
+            placeholder="发消息..."
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             onKeyPress={handleKeyPress}

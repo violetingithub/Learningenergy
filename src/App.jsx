@@ -49,7 +49,7 @@ function DarkHomePage() {
       <header className="dark-header">
         <div className="header-left">
           <img src="/logo.svg" alt="Logo" className="app-logo" />
-          <h1 className="app-title">学习能量站</h1>
+          <h1 className="app-title">精神饿了么</h1>
         </div>
         <nav className="main-nav">
           <button className="nav-button" onClick={handleAboutUsClick}>关于我们</button>
