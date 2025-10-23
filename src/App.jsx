@@ -5,12 +5,14 @@ import icon_timer from './assets/icon_timer.png';
 import icon_pet from './assets/icon_pet.png';
 import icon_chouqian from './assets/icon_chouqian.png';
 import icon_chat from './assets/icon_chat.png';
+import icon_buddy from './assets/icon_study.png';
 
 // 导入拆分出去的页面组件
 import { FortuneTellingPage, FortuneResultPage } from './components/FortuneTellingPage';
 import { QuestionPage } from './components/QuestionPage';
 import { TimerPage } from './components/TimerPage';
 import { PetPage } from './components/PetPage';
+import StudyBuddyPage from './components/StudyBuddyPage';
 
 // 暗风格首页组件
 function DarkHomePage() {
@@ -31,6 +33,9 @@ function DarkHomePage() {
       case 'pet':
         navigate('/pet-training');
         break;
+      case 'buddy':
+        navigate('/study-buddy');
+        break;
       default:
         break;
     }
@@ -49,7 +54,7 @@ function DarkHomePage() {
       <header className="dark-header">
         <div className="header-left">
           <img src="/logo.svg" alt="Logo" className="app-logo" />
-          <h1 className="app-title">精神饿了么</h1>
+          <h1 className="app-title">学习能量站</h1>
         </div>
         <nav className="main-nav">
           <button className="nav-button" onClick={handleAboutUsClick}>关于我们</button>
@@ -89,6 +94,13 @@ function DarkHomePage() {
             description="领养专属伙伴，用专注见证彼此成长"
             icon={icon_pet}
             onClick={() => handleCategoryClick('pet')}
+          />
+          
+          <CategoryCard
+            title="学海知己"
+            description="学习不孤单，发现同样在努力的TA"
+            icon={icon_buddy}
+            onClick={() => handleCategoryClick('buddy')}
           />
         </div>
       </main>
@@ -136,6 +148,7 @@ function App() {
       <Route path="/ask-question" element={<QuestionPage />} />
       <Route path="/study-timer" element={<TimerPage />} />
       <Route path="/pet-training" element={<PetPage />} />
+      <Route path="/study-buddy" element={<StudyBuddyPage />} />
     </Routes>
   );
 }
