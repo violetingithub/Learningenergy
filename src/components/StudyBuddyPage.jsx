@@ -10,6 +10,19 @@ function StudyBuddyPage() {
   const [toastMessage, setToastMessage] = useState('');
   const [likedBuddies, setLikedBuddies] = useState({});
   const [energyGiftingId, setEnergyGiftingId] = useState(null);
+  const buddiesListRef = React.useRef(null);
+
+  // 当搜索结果显示后,自动滚动到结果列表底部
+  useEffect(() => {
+    if (foundBuddies.length > 0 && buddiesListRef.current) {
+      setTimeout(() => {
+        buddiesListRef.current.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'end'
+        });
+      }, 100);
+    }
+  }, [foundBuddies]);
 
   const handleStartSearch = () => {
     setIsSearching(true);
@@ -96,8 +109,9 @@ function StudyBuddyPage() {
 
         {/* 搜索结果列表 */}
         {foundBuddies.length > 0 && (
-          <div className="buddies-list">
-            <h3 className="list-title">找到 {foundBuddies.length} 位学习搭子</h3>
+          <div className="buddies-list" ref={buddiesListRef}>
+            <h3 className="list-title">找到附近 {foundBuddies.length} 位学习搭子</h3>
+            <p className="buddy-tip">快给搭子点赞 送能量吧</p>
             {foundBuddies.map(buddy => (
               <div key={buddy.id} className="buddy-card">
                 <div className="buddy-info">

@@ -164,7 +164,7 @@ export function PetPage() {
       
       {/* 顶部标题区域 */}
       <div className="pet-header">
-        <h1 className="pet-title">宠物养成</h1>
+        <h1 className="pet-title">灵犀伙伴</h1>
         <p className="pet-subtitle">陪伴学习，共同成长</p>
       </div>
       
