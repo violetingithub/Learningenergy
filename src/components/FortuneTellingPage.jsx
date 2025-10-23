@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import learningApi, { ChouQianPrompt } from '../api/learningApi'
+import iconCqBg from '../assets/icon_cq_bg.png'
 
 // 学习能量盲盒页面（二级页面）
 export function FortuneTellingPage() {
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false) // 添加loading状态
+  const [isShaking, setIsShaking] = useState(false) // 添加摇晃状态
 
   const generateFortune = async () => {
     setIsLoading(true) // 设置loading为true
+    setIsShaking(true) // 开始摇晃动画
+    
     try {
       const apiResponse = await learningApi.generateAI({prompt: ChouQianPrompt})
 
@@ -72,6 +76,7 @@ export function FortuneTellingPage() {
       });
     } finally {
       setIsLoading(false) // 设置loading为false
+      setIsShaking(false) // 停止摇晃动画
     }
   }
 
@@ -91,14 +96,11 @@ export function FortuneTellingPage() {
             今天的勤奋耕耘是明日硕果的根基，坚持让知识照亮前行的道路，你将遇见更好的自己，未来必定光芒万丈。
           </p>
           <div className="fortune-sticks-container">
-            <div className="fortune-sticks-pot">
-              <div className="stick">学</div>
-              <div className="stick">习</div>
-              <div className="stick">能</div>
-              <div className="stick">量</div>
-              <div className="stick">盲</div>
-              <div className="stick">盒</div>
-            </div>
+            <img 
+              src={iconCqBg} 
+              alt="签筒" 
+              className={`fortune-image ${isShaking ? 'shaking' : ''}`}
+            />
           </div>
           <button className="draw-button" onClick={generateFortune} disabled={isLoading}>
             {isLoading ? '求签中...' : '开始求签'}
