@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
+import icon_timer from './assets/icon_timer.png';
+import icon_pet from './assets/icon_pet.png';
+import icon_chouqian from './assets/icon_chouqian.png';
+import icon_chat from './assets/icon_chat.png';
 
 // 导入拆分出去的页面组件
 import { FortuneTellingPage, FortuneResultPage } from './components/FortuneTellingPage';
@@ -57,30 +61,30 @@ function DarkHomePage() {
         {/* 分类卡片网格 */}
         <div className="categories-grid">
           <CategoryCard
-            title="我要求签"
-            description="获取学习能量和鼓励"
-            icon="🎐"
+            title="能量启程"
+            description="一签一心境，解锁专属学习能量"
+            icon={icon_chouqian}
             onClick={() => handleCategoryClick('fortune')}
           />
           
           <CategoryCard
-            title="我要提问"
-            description="解决学习中的疑惑"
-            icon="❓"
+            title="伴学树洞​​"
+            description="学途漫漫，做你最忠实的倾听者"
+            icon={icon_chat}
             onClick={() => handleCategoryClick('question')}
           />
           
           <CategoryCard
-            title="学习计时"
-            description="专注学习，提高效率"
-            icon="⏱️"
+            title="沉静时空"
+            description="开启专注结界，开始高效沉浸时光"
+            icon={icon_timer}
             onClick={() => handleCategoryClick('timer')}
           />
           
           <CategoryCard
-            title="宠物养成"
-            description="陪伴学习，共同成长"
-            icon="🐱"
+            title="灵犀伙伴"
+            description="领养专属伙伴，用专注见证彼此成长"
+            icon={icon_pet}
             onClick={() => handleCategoryClick('pet')}
           />
         </div>
@@ -107,7 +111,9 @@ function DarkHomePage() {
 function CategoryCard({ title, description, icon, onClick }) {
   return (
     <div className="category-card" onClick={onClick}>
-      <div className="category-icon">{icon}</div>
+      <div className="category-icon">
+        <img src={icon} alt={title} className="category-icon-image" />
+      </div>
       <h3 className="category-title">{title}</h3>
       <p className="category-description">{description}</p>
     </div>
