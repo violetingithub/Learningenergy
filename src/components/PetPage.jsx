@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
+import petCatIcon from '../assets/icon_pet_cat.png'
 
 // 宠物养成页面组件
 export function PetPage() {
@@ -190,7 +191,7 @@ export function PetPage() {
         
         <div className="pet-circle">
           <div className={`pet-image pet-${pet.status} ${isFeeding ? 'feeding' : ''} ${isPlaying ? 'playing' : ''}`}>
-            🐱
+            <img src={petCatIcon} alt="宠物猫" style={{ width: '90%', height: '90%', objectFit: 'contain' }} />
           </div>
           
           {/* 宠物名称 */}

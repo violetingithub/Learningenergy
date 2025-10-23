@@ -217,7 +217,7 @@
 .pet-page {
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(135deg, #2d1b69 0%, #6d48cc 100%);
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
   color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -239,12 +239,12 @@
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
   color: #ffffff;
-  text-shadow: 0 2px 10px rgba(109, 72, 204, 0.5);
+  text-shadow: 0 2px 10px rgba(0, 180, 216, 0.5);
 }
 
 .pet-subtitle {
   font-size: 1.2rem;
-  color: #c4b5fd;
+  color: #90e0ef;
 }
 
 /* 宠物展示区域 */
@@ -261,7 +261,7 @@
   width: 300px;
   height: 300px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(109, 72, 204, 0.3) 100%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(0, 180, 216, 0.3) 100%);
   border: 2px solid rgba(255, 255, 255, 0.2);
   display: flex;
   flex-direction: column;
@@ -277,6 +277,9 @@
   margin-bottom: 1rem;
   transition: all 0.3s ease;
   animation: float 3s ease-in-out infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .pet-image.pet-happy {
@@ -307,6 +310,7 @@
   font-weight: bold;
   color: #ffffff;
   margin-bottom: 1rem;
+  margin-top: -3rem;
 }
 
 /* 宠物消息 */
@@ -346,7 +350,7 @@
   position: absolute;
   top: 20px;
   right: 20px;
-  background: rgba(109, 72, 204, 0.8);
+  background: rgba(0, 180, 216, 0.8);
   color: #ffffff;
   padding: 0.5rem 1rem;
   border-radius: 20px;
@@ -372,7 +376,7 @@
   transform: translate(-50%, -50%);
   width: 50px;
   height: 50px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(109, 72, 204, 0.8) 100%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(0, 180, 216, 0.8) 100%);
   border: 2px solid rgba(255, 255, 255, 0.5);
   border-radius: 50%;
   display: flex;
@@ -381,13 +385,13 @@
   cursor: pointer;
   transition: all 0.3s ease;
   animation: bubbleFloat 3s ease-in-out infinite;
-  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.5);
+  box-shadow: 0 4px 15px rgba(0, 180, 216, 0.5);
   z-index: 10;
 }
 
 .energy-bubble:hover {
   transform: translate(-50%, -50%) scale(1.1);
-  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.7);
+  box-shadow: 0 6px 20px rgba(0, 180, 216, 0.7);
 }
 
 .energy-bubble:active {
@@ -417,7 +421,7 @@
   transform: translateX(-50%);
   font-size: 0.7rem;
   color: #ffffff;
-  background: rgba(109, 72, 204, 0.8);
+  background: rgba(0, 180, 216, 0.8);
   padding: 0.2rem 0.5rem;
   border-radius: 10px;
   white-space: nowrap;
@@ -437,7 +441,7 @@
 
 .experience-fill {
   height: 100%;
-  background: linear-gradient(90deg, #8b5cf6, #ec4899);
+  background: linear-gradient(90deg, #00b4d8, #90e0ef);
   transition: width 0.3s ease;
 }
 
@@ -467,7 +471,7 @@
 .stat-name {
   font-size: 1.1rem;
   font-weight: 500;
-  color: #c4b5fd;
+  color: #90e0ef;
   margin-bottom: 0.5rem;
   text-align: center;
 }
@@ -527,9 +531,9 @@
 
 .action-button:hover:not(.disabled) {
   background: rgba(255, 255, 255, 0.2);
-  border-color: #c4b5fd;
+  border-color: #90e0ef;
   transform: translateY(-5px);
-  box-shadow: 0 8px 24px rgba(109, 72, 204, 0.4);
+  box-shadow: 0 8px 24px rgba(0, 180, 216, 0.4);
 }
 
 .action-button.disabled,
@@ -597,7 +601,7 @@
 
 .activity-name {
   font-size: 1.1rem;
-  color: #c4b5fd;
+  color: #90e0ef;
 }
 
 /* 动画效果 */
