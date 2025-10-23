@@ -106,7 +106,7 @@ export function FortuneTellingPage() {
             {isLoading ? '求签中...' : '开始求签'}
           </button>
         </div>
-        <p className="disclaimer">-内容仅供参考-</p>
+        <p className="disclaimer">-内容AI生成,仅供参考-</p>
       </div>
     </div>
   );
