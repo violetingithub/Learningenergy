@@ -47,7 +47,10 @@ function DarkHomePage() {
     <div className="dark-homepage">
       {/* 顶部导航栏 */}
       <header className="dark-header">
-        <h1 className="app-title">学习能量站</h1>
+        <div className="header-left">
+          <img src="/logo.svg" alt="Logo" className="app-logo" />
+          <h1 className="app-title">学习能量站</h1>
+        </div>
         <nav className="main-nav">
           <button className="nav-button" onClick={handleAboutUsClick}>关于我们</button>
         </nav>
@@ -102,7 +105,7 @@ function DarkHomePage() {
 
       {/* 页脚 */}
       <footer className="dark-footer">
-        <p className="footer-text">学习能量站 © 2024 | 让学习更有趣</p>
+        <p className="footer-text">学习能量站 © 2025 | 让学习更有趣</p>
       </footer>
     </div>
   );

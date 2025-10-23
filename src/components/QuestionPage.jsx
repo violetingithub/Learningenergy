@@ -143,7 +143,7 @@ export function QuestionPage() {
 
       {/* 顶部标题 */}
       <div className="chat-header">
-        <h1 className="chat-title">情绪价值</h1>
+        <h1 className="chat-title">伴学树洞</h1>
         <p className="chat-subtitle">内容由AI生成</p>
       </div>
 
