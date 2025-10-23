@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Route, Routes, useNavigate } from 'react-router-dom'
-import './App.css'
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import './App.css';
 
 // 导入拆分出去的页面组件
-import { FortuneTellingPage, FortuneResultPage } from './components/FortuneTellingPage'
-import { QuestionPage } from './components/QuestionPage'
-import { TimerPage } from './components/TimerPage'
-import { PetPage } from './components/PetPage'
+import { FortuneTellingPage, FortuneResultPage } from './components/FortuneTellingPage';
+import { QuestionPage } from './components/QuestionPage';
+import { TimerPage } from './components/TimerPage';
+import { PetPage } from './components/PetPage';
 
 // 暗风格首页组件
 function DarkHomePage() {
@@ -32,9 +32,11 @@ function DarkHomePage() {
     }
   };
 
-  // 处理关于我们点击事件
+  // 处理关于我们点击事件 - 修改为滚动到页面底部的关于我们部分
   const handleAboutUsClick = () => {
-    navigate('/about-us');
+    document.getElementById('about-us-section').scrollIntoView({ 
+      behavior: 'smooth' 
+    });
   };
 
   return (
@@ -84,6 +86,15 @@ function DarkHomePage() {
         </div>
       </main>
 
+      {/* 关于我们部分 - 添加到首页底部 */}
+      <section id="about-us-section" className="about-us-section">
+        <div className="subpage-content">
+          <h1>关于我们</h1>
+          <p>学习能量站致力于为学习者提供有趣、激励的学习体验，帮助大家更高效地学习和成长。</p>
+          <p>我们的使命是让学习变得更有趣，更有动力！</p>
+        </div>
+      </section>
+
       {/* 页脚 */}
       <footer className="dark-footer">
         <p className="footer-text">学习能量站 © 2024 | 让学习更有趣</p>
@@ -103,33 +114,11 @@ function CategoryCard({ title, description, icon, onClick }) {
   );
 }
 
-function AboutUsPage() {
-  const navigate = useNavigate();
-  
-  const handleBackToHome = () => {
-    navigate('/');
-  };
-
-  return (
-    <div className="subpage">
-      <button className="back-button" onClick={handleBackToHome}>← 返回首页</button>
-      <div className="subpage-content">
-        <h1>关于我们</h1>
-        <p>学习能量站致力于为学习者提供有趣、激励的学习体验，帮助大家更高效地学习和成长。</p>
-        <p>我们的使命是让学习变得更有趣，更有动力！</p>
-      </div>
-    </div>
-  );
-}
-
 function App() {
   return (
     <Routes>
       {/* 首页路由 */}
       <Route path="/" element={<DarkHomePage />} />
-      
-      {/* 关于我们路由 */}
-      <Route path="/about-us" element={<AboutUsPage />} />
       
       {/* 四个分类的二级页面路由 */}
       <Route path="/fortune-telling" element={<FortuneTellingPage />} />
@@ -138,7 +127,7 @@ function App() {
       <Route path="/study-timer" element={<TimerPage />} />
       <Route path="/pet-training" element={<PetPage />} />
     </Routes>
-  )
+  );
 }
 
-export default App
+export default App;

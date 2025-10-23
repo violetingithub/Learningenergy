@@ -1548,3 +1548,36 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0, 180, 216, 0.6);
 }
+
+/* 关于我们部分样式 */
+.about-us-section {
+  width: 100%;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  padding: 6rem 2rem 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.about-us-section .subpage-content {
+  max-width: 800px;
+  width: 100%;
+  text-align: center;
+  background: none;
+  padding: 0;
+  border: none;
+}
+
+.about-us-section h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+}
+
+.about-us-section p {
+  font-size: 1.1rem;
+  color: #90e0ef;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
