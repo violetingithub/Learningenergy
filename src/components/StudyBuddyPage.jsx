@@ -51,9 +51,9 @@ function StudyBuddyPage() {
     sessionStorage.setItem('studyBuddy_likedBuddies', JSON.stringify(likedBuddies));
   }, [likedBuddies]);
 
-  // 当搜索结果显示后,自动滚动到结果列表底部
+  // 当搜索结果显示后,自动滚动到结果列表底部（仅在搜索完成且列表不为空时）
   useEffect(() => {
-    if (foundBuddies.length > 0 && buddiesListRef.current) {
+    if (!isSearching && foundBuddies.length > 0 && buddiesListRef.current) {
       setTimeout(() => {
         buddiesListRef.current.scrollIntoView({ 
           behavior: 'smooth', 
@@ -61,7 +61,7 @@ function StudyBuddyPage() {
         });
       }, 100);
     }
-  }, [foundBuddies]);
+  }, [foundBuddies, isSearching]);
 
   const handleStartSearch = () => {
     setIsSearching(true);
