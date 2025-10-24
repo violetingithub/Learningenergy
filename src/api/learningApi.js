@@ -12,7 +12,9 @@ export const ChouQianPrompt = `请为我生成一段鼓励学习的话术，要�
 export const TimerPrompt = '请根据学习时间${time}（时间单位是秒）为我生成一段鼓励学习的话术，要求：\n1. 字数在100个字左右\n2. 突出学习的意义和美好前景\n3. 强调克服困难的重要性和学习者具备的潜力\n4. 如果学习时间很短可以适当批评督促\n5. 请以JSON格式返回，包含字段 content';
 
 // 对话
-export const ChatPrompt = '请根据用户输入的信息：${content}，做出合理的回答。要求：\n1. 请以JSON格式返回，包含字段 content';
+export const AIChatPrompt = '请根据用户输入的信息：${content}，做出合理的回答。要求：\n1. 请以JSON格式返回，包含字段 content';
+
+export const UserChatPrompt = '请根据用户输入的信息：${content}，进行好友对话。要求：\n1. 请以JSON格式返回，包含字段 content';
 
 
 /**

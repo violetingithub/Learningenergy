@@ -1,16 +1,55 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function StudyBuddyPage() {
   const navigate = useNavigate();
-  const [isSearching, setIsSearching] = useState(false);
-  const [foundBuddies, setFoundBuddies] = useState([]);
-  const [connectingId, setConnectingId] = useState(null);
+  const location = useLocation();
+  
+  // 检查是否从ChatSessionPage返回
+  const isReturningFromChat = location.state?.returnFromChat;
+  
+  // 从sessionStorage恢复状态（仅当从ChatSessionPage返回时）
+  const [isSearching, setIsSearching] = useState(() => {
+    if (!isReturningFromChat) return false;
+    const saved = sessionStorage.getItem('studyBuddy_isSearching');
+    return saved ? JSON.parse(saved) : false;
+  });
+  const [foundBuddies, setFoundBuddies] = useState(() => {
+    if (!isReturningFromChat) return [];
+    const saved = sessionStorage.getItem('studyBuddy_foundBuddies');
+    return saved ? JSON.parse(saved) : [];
+  });
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
-  const [likedBuddies, setLikedBuddies] = useState({});
+  const [likedBuddies, setLikedBuddies] = useState(() => {
+    if (!isReturningFromChat) return {};
+    const saved = sessionStorage.getItem('studyBuddy_likedBuddies');
+    return saved ? JSON.parse(saved) : {};
+  });
   const [energyGiftingId, setEnergyGiftingId] = useState(null);
   const buddiesListRef = React.useRef(null);
+  
+  // 如果不是从ChatSessionPage返回，清除sessionStorage
+  useEffect(() => {
+    if (!isReturningFromChat) {
+      sessionStorage.removeItem('studyBuddy_isSearching');
+      sessionStorage.removeItem('studyBuddy_foundBuddies');
+      sessionStorage.removeItem('studyBuddy_likedBuddies');
+    }
+  }, [isReturningFromChat]);
+
+  // 保存状态到sessionStorage
+  useEffect(() => {
+    sessionStorage.setItem('studyBuddy_isSearching', JSON.stringify(isSearching));
+  }, [isSearching]);
+
+  useEffect(() => {
+    sessionStorage.setItem('studyBuddy_foundBuddies', JSON.stringify(foundBuddies));
+  }, [foundBuddies]);
+
+  useEffect(() => {
+    sessionStorage.setItem('studyBuddy_likedBuddies', JSON.stringify(likedBuddies));
+  }, [likedBuddies]);
 
   // 当搜索结果显示后,自动滚动到结果列表底部
   useEffect(() => {
@@ -32,23 +71,18 @@ function StudyBuddyPage() {
     setTimeout(() => {
       // 模拟找到的学习搭子数据
       setFoundBuddies([
-        { id: 1, name: '学习达人A', distance: '0.5km', subject: '数学' },
-        { id: 2, name: '学习达人B', distance: '1.2km', subject: '英语' },
-        { id: 3, name: '学习达人C', distance: '2.0km', subject: '物理' }
+        { id: 1, name: '面对疾风', distance: '0.5km', subject: '数学' },
+        { id: 2, name: '听风的蝉', distance: '1.2km', subject: '英语' },
+        { id: 3, name: '小甜甜', distance: '2.0km', subject: '物理' }
       ]);
       setIsSearching(false);
     }, 6000);
   };
 
-  // 处理连接按钮点击
-  const handleConnect = (buddyId) => {
-    setConnectingId(buddyId);
-    setTimeout(() => {
-      setConnectingId(null);
-      setToastMessage('连接成功！');
-      setShowToast(true);
-      setTimeout(() => setShowToast(false), 3000);
-    }, 3000);
+  // 处理聊天按钮点击
+  const handleChat = (buddy) => {
+    // 跳转到ChatSessionPage页面，并传递用户名称和头像参数
+    navigate('/chat-session', { state: { buddy: { name: buddy.name, avatar: buddy.avatar } } });
   };
 
   const handleLike = (buddyId) => {
@@ -139,10 +173,9 @@ function StudyBuddyPage() {
                   </button>
                   <button 
                     className="connect-button"
-                    onClick={() => handleConnect(buddy.id)}
-                    disabled={connectingId === buddy.id}
+                    onClick={() => handleChat(buddy)}
                   >
-                    {connectingId === buddy.id ? '连接中...' : '连接'}
+                    聊天
                   </button>
                 </div>
               </div>

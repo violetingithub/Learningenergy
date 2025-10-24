@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import React, { useState, useEffect, useRef } from 'react'
-import learningApi, { ChatPrompt } from '../api/learningApi'
+import learningApi, { AIChatPrompt } from '../api/learningApi'
 
 // 我要提问页面组件 - 聊天界面风格
 export function QuestionPage() {
@@ -85,7 +85,7 @@ export function QuestionPage() {
   const generateChat = async (content) => {
     setIsSending(true);
     try {
-      const apiResponse = await learningApi.generateAI({ prompt: ChatPrompt.replace('${content}', content) })
+      const apiResponse = await learningApi.generateAI({ prompt: AIChatPrompt.replace('${content}', content) })
       const data = apiResponse.data
       if (!data.choices || data.choices.length === 0) {
         throw new Error('文心一言API调用结果为空')
@@ -144,7 +144,6 @@ export function QuestionPage() {
       {/* 顶部标题 */}
       <div className="chat-header">
         <h1 className="chat-title">伴学树洞</h1>
-        <p className="chat-subtitle">内容由AI生成</p>
       </div>
 
       {/* 聊天内容区域 */}

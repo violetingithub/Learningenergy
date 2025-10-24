@@ -13,6 +13,7 @@ import { QuestionPage } from './components/QuestionPage';
 import { TimerPage } from './components/TimerPage';
 import { PetPage } from './components/PetPage';
 import StudyBuddyPage from './components/StudyBuddyPage';
+import { ChatSessionPage } from './components/ChatSessionPage';
 
 // 暗风格首页组件
 function DarkHomePage() {
@@ -149,6 +150,7 @@ function App() {
       <Route path="/study-timer" element={<TimerPage />} />
       <Route path="/pet-training" element={<PetPage />} />
       <Route path="/study-buddy" element={<StudyBuddyPage />} />
+      <Route path="/chat-session" element={<ChatSessionPage />} />
     </Routes>
   );
 }
