@@ -1343,6 +1343,8 @@
 .fortune-sticks-container {
   margin-bottom: 2rem;
   display: flex;
+  /* 可能是图片的原因不能居中，所以手动添加 padding-left */
+  padding-left: 25px;
   justify-content: center;
 }
 
